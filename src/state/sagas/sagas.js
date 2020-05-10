@@ -1,7 +1,8 @@
 import { all, spawn, call } from "redux-saga/effects";
 import pomodoroTimerSaga from "./pomodorTimerSaga";
+import pomodoroTrackerSaga from "./pomodoroTrackerSaga";
 
-const sagas = [pomodoroTimerSaga];
+const sagas = [pomodoroTimerSaga, pomodoroTrackerSaga];
 
 export default function* rootSasga() {
   yield all(

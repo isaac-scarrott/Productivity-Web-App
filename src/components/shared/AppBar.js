@@ -7,12 +7,14 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { makeStyles } from "@material-ui/core/styles";
-
+// import navImage from "../../../public/nav-bar-background";
 // https://webstockreview.net/images600_/clipart-banner-spring-9.png
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
-    background: `${theme.palette.primary.main} url(https://webstockreview.net/images600_/clipart-banner-spring-9.png)`,
+    background: `${theme.palette.primary.main} url(/nav-bar-background.png)`,
+    backgroundPosition: "center bottom",
+    backgroundSize: "auto 150%",
   },
   profileIcon: {
     marginLeft: "auto",

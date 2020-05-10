@@ -7,19 +7,7 @@ import {
   call,
   takeLatest,
 } from "redux-saga/effects";
-
-function* pollIfTimerFinished() {
-  const { pomodoroSettings } = yield select();
-  let { timeElapsedInMs } = yield select((state) => state.timer);
-
-  while (timeElapsedInMs < pomodoroSettings.pomodoroLength) {
-    yield delay(1000);
-
-    yield put({ type: "TIMER_TICK" });
-
-    timeElapsedInMs = yield select((state) => state.timer.timeElapsedInMs);
-  }
-}
+import getCurrentPomodoroLength from "../../utils/getCurrentPomodoroLength";
 
 function* pomodoroTimerAction() {
   yield put({ type: "TIMER_START" });
@@ -46,6 +34,21 @@ function* pomodoroTimerAction() {
   }
 
   yield put({ type: "TIMER_END" });
+}
+
+function* pollIfTimerFinished() {
+  const { pomodoroSettings, pomodoroStore } = yield select();
+  let { timeElapsedInMs } = yield select((state) => state.timer);
+
+  const timerLength = getCurrentPomodoroLength(pomodoroSettings, pomodoroStore);
+
+  while (timeElapsedInMs < timerLength) {
+    yield delay(1000);
+
+    yield put({ type: "TIMER_TICK" });
+
+    timeElapsedInMs = yield select((state) => state.timer.timeElapsedInMs);
+  }
 }
 
 export default function* pomodoroTimerSaga() {
