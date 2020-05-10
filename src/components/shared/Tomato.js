@@ -3,8 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   svgContainer: {
-    minWidth: "300px",
-    width: "20%",
+    minWidth: "100px",
+    width: "75%",
     marginBottom: "20px",
     "& svg": { maxHeight: "100%" },
   },

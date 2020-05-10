@@ -1,21 +1,22 @@
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import {
-  CircularProgressbarWithChildren,
-  buildStyles,
-} from "react-circular-progressbar";
+import Head from "next/head";
+import { makeStyles } from "@material-ui/core/styles";
+
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 dayjs.extend(duration);
 
-import Tomato from "../components/shared/Tomato";
-import Button from "../components/shared/Button";
+import Button from "../components/shared/buttons/Button";
 import { useDispatch, useSelector } from "react-redux";
+
+import ButtonGroup from "../components/shared/buttons/ButtonGroup";
+import PomodoroProgress from "../components/pomodorProgress";
 
 const useStyles = makeStyles((theme) => ({
   container: {
     width: "100vw",
-    height: "100%",
+    height: "93%",
     display: "flex",
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -24,46 +25,69 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function PomodoroProgress({ progress }) {
-  const theme = useTheme();
-
-  return (
-    <CircularProgressbarWithChildren
-      value={progress}
-      strokeWidth={2}
-      styles={buildStyles(
-        {
-          pathColor: theme.palette.primary.main,
-          trailColor: "none",
-        },
-        { root: { width: "10%" } }
-      )}
-    >
-      <Tomato />
-    </CircularProgressbarWithChildren>
-  );
-}
-
 export default function Pomodoro() {
   const dispatch = useDispatch();
   const { timer, pomodoroSettings } = useSelector((state) => state);
 
   const { container, CircularProgressContainer } = useStyles();
 
-  return (
-    <div className={container}>
-      <div className={CircularProgressContainer}>
-        <PomodoroProgress
-          progress={
-            (timer.timeElapsedInMs / pomodoroSettings.pomodoroLength) * 100
-          }
-        />
-      </div>
-      <Button onClick={() => dispatch({ type: "TIMER_START" })}>
-        Start Now
+  const formattedTimeElapsed = dayjs(timer.timeElapsedInMs).format("mm:ss");
+
+  function renderButtons() {
+    if (timer.state === "RUNNING") {
+      return (
+        <ButtonGroup>
+          <Button onClick={() => dispatch({ type: "TIMER_ACTION_STOP" })}>
+            Stop
+          </Button>
+          <Button onClick={() => dispatch({ type: "TIMER_PAUSE" })}>
+            Pause
+          </Button>
+        </ButtonGroup>
+      );
+    }
+
+    if (timer.state === "PAUSED") {
+      return (
+        <ButtonGroup>
+          <Button onClick={() => dispatch({ type: "TIMER_ACTION_STOP" })}>
+            Stop
+          </Button>
+          <Button onClick={() => dispatch({ type: "TIMER_RESUME" })}>
+            Resume
+          </Button>
+        </ButtonGroup>
+      );
+    }
+
+    return (
+      <Button onClick={() => dispatch({ type: "TIMER_ACTION_START" })}>
+        Start Timer
       </Button>
-      <Button onClick={() => dispatch({ type: "STOP_TIMER" })}>Stop Now</Button>
-      {dayjs(timer.timeElapsedInMs).format("mm:ss")}
-    </div>
+    );
+  }
+
+  return (
+    <>
+      <Head>
+        <title>
+          {timer.state !== "STOPPED" ? formattedTimeElapsed : "Pomodoro Timer"}
+        </title>
+      </Head>
+
+      <div className={container}>
+        <div className={CircularProgressContainer}>
+          <PomodoroProgress
+            progress={
+              (timer.timeElapsedInMs / pomodoroSettings.pomodoroLength) * 100
+            }
+          />
+        </div>
+
+        {renderButtons()}
+
+        {formattedTimeElapsed}
+      </div>
+    </>
   );
 }

@@ -1,24 +1,39 @@
 const initialState = {
-  startTime: null,
+  state: "STOPPED",
   timeElapsedInMs: 0,
 };
 
-export default (state = initialState, { type, timeElapsedInMs }) => {
+export default (state = initialState, { type }) => {
   switch (type) {
-    case "SET_TIMER_START_TIME":
+    case "TIMER_START":
       return {
-        ...state,
-        startTime: new Date().getTime(),
+        state: "RUNNING",
+        timeElapsedInMs: 0,
       };
 
-    case "SET_TIME_ELAPSED_IN_MS":
+    case "TIMER_END":
       return {
         ...state,
-        timeElapsedInMs,
+        state: "STOPPED",
       };
 
-    case "CLEAR_TIMER_STATE":
-      return initialState;
+    case "TIMER_PAUSE":
+      return {
+        ...state,
+        state: "PAUSED",
+      };
+
+    case "TIMER_RESUME":
+      return {
+        ...state,
+        state: "RUNNING",
+      };
+
+    case "TIMER_TICK":
+      return {
+        ...state,
+        timeElapsedInMs: state.timeElapsedInMs + 1000,
+      };
 
     default:
       return state;

@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-import Button from "../components/shared/Button";
+import Button from "../components/shared/buttons/Button";
 import Tomato from "../components/shared/Tomato";
 
 const useStyles = makeStyles((theme) => ({
