@@ -5,7 +5,7 @@ module.exports = {
   username: "postgres",
   password: "postgres",
   database: "productivity_web_app",
-  dropSchema: true,
+  // dropSchema: true,
   synchronize: true,
   logging: true,
   entities: [__dirname + "/src/entity/*{.ts,.js}"],

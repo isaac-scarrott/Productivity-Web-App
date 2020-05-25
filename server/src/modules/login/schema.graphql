@@ -1,7 +1,7 @@
 scalar Date
 
 type Query {
-  login(email: String!): Boolean!
+  login(email: String!, password: String!): Boolean!
 }
 
 type Mutation {

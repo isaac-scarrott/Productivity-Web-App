@@ -1,16 +1,18 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
-import { IsEmail, IsDate } from "class-validator";
+import { IsEmail } from "class-validator";
 
 @Entity({ name: "users" })
 export class User extends BaseEntity {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn()
   id: string;
 
   @Column("varchar", { length: 255, unique: true })
   @IsEmail()
   email: string;
 
+  @Column("text")
+  password: string;
+
   @Column("date", { default: new Date() })
-  @IsDate()
   createdOn: Date;
 }
