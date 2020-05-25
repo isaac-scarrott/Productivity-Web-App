@@ -18,7 +18,6 @@ export type Mutation = {
 
 export type MutationRegisterArgs = {
   email: Scalars['String'];
-  password: Scalars['String'];
 };
 
 
@@ -107,7 +106,7 @@ export type ResolversParentTypes = {
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  register?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationRegisterArgs, 'email' | 'password'>>;
+  register?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationRegisterArgs, 'email'>>;
 };
 
 export type Resolvers<ContextType = any> = {

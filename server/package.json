@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "0.0.1",
-  "description": "Awesome project developed with TypeORM.",
+  "description": "",
   "devDependencies": {
     "@graphql-codegen/cli": "1.14.0",
     "@graphql-codegen/introspection": "1.14.0",
@@ -26,11 +26,12 @@
     "graphql-yoga": "^1.18.3",
     "pg": "^7.3.0",
     "reflect-metadata": "^0.1.10",
+    "type-graphql": "^1.0.0-rc.2",
     "typeorm": "0.2.25",
     "uuid": "^8.1.0"
   },
   "scripts": {
-    "start": "nodemon --exec ts-node src/index.ts",
+    "start": "nodemon --inspect=5858 --watch 'src/**/*.{graphql,ts}' --exec ts-node src/index.ts",
     "build": "tsc & copyfiles -u 1 ./**/*.graphql build/",
     "test": "jest",
     "gen-graphql-types": "graphql-codegen --config codegen.yml"

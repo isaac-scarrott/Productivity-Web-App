@@ -1,9 +1,9 @@
 import { ResolverMap } from "../../types/graphqlUtils";
 
-import register from "./registerUser";
+import login from "./loginUser";
 
 export const resolver: ResolverMap = {
-  Mutation: {
-    register,
+  Query: {
+    login,
   },
 };

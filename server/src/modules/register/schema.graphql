@@ -1,3 +1,15 @@
+scalar Date
+
+type User {
+  id: ID!
+  email: String!
+  createdOn: Date
+}
+
+type Query {
+  dummy: String
+}
+
 type Mutation {
-  register(email: String!, password: String!): Boolean
+  register(email: String!): User
 }

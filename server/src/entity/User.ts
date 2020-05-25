@@ -10,7 +10,7 @@ export class User extends BaseEntity {
   @IsEmail()
   email: string;
 
-  @Column("date")
+  @Column("date", { default: new Date() })
   @IsDate()
   createdOn: Date;
 }

@@ -6,7 +6,7 @@ import { createConnection } from "typeorm";
 import getExecutableSchemas from "./utils/getExecutableSchemas";
 
 const schemas = getExecutableSchemas();
-console.log(schemas.length);
+
 const server = new GraphQLServer({ schema: mergeSchemas({ schemas }) });
 
 const options = {

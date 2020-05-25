@@ -1,0 +1,9 @@
+scalar Date
+
+type Query {
+  login(email: String!): Boolean!
+}
+
+type Mutation {
+  dummy: String
+}
